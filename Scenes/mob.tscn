@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjojrxgw6a5nc"]
+
+[ext_resource type="Script" uid="uid://disgvoge8ef21" path="res://Scripts/mob.gd" id="1_u8nqw"]
+[ext_resource type="PackedScene" uid="uid://cq27e71b8tntk" path="res://Models/GLB format/character-l.glb" id="2_u8nqw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b44se"]
+radius = 0.759137
+height = 1.82481
+
+[sub_resource type="Animation" id="Animation_u8nqw"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b44se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ypr7k"]
+_data = {
+&"RESET": SubResource("Animation_b44se"),
+&"spin": SubResource("Animation_u8nqw")
+}
+
+[node name="mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_u8nqw")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="character-l2" parent="Pivot" instance=ExtResource("2_u8nqw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 0.526552, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150616, 0.826834, -0.0185581)
+shape = SubResource("CapsuleShape3D_b44se")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.305496)
+aabb = AABB(-1.15173, -1, -1.6301, 2.30347, 2, 3.2602)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ypr7k")
+}
+autoplay = "spin"
+speed_scale = 2.0
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
