@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7wij0wyyudfe"]
+
+[ext_resource type="PackedScene" uid="uid://btafty8j8tfu8" path="res://Mutant Dying.fbx" id="1_okq71"]
+[ext_resource type="PackedScene" uid="uid://br7s2j3ji5p2a" path="res://Run.fbx" id="2_wosnj"]
+[ext_resource type="PackedScene" uid="uid://s04g7pe6xii8" path="res://Walking.fbx" id="3_t3l2h"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Mutant Dying" parent="." instance=ExtResource("1_okq71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1587, -0.468209, -0.808594)
+
+[node name="Run" parent="." instance=ExtResource("2_wosnj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.544297, -0.457442, -0.808594)
+
+[node name="Walking" parent="." instance=ExtResource("3_t3l2h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2604, -0.446676, -0.808594)
